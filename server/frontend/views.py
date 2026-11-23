@@ -106,3 +106,17 @@ def get_all_car_makes(request):
         {"id": 3, "name": "Ford", "models": [{"id": 301, "name": "Mustang"}, {"id": 302, "name": "Escape"}]}
     ]
     return JsonResponse({"sample_data": True, "car_makes": makes})
+
+def analyze_review(request):
+    if request.method != "GET":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+    review = request.GET.get("text", "")
+    if not review.strip():
+        return JsonResponse({"error": "Review text is required"}, status=400)
+    positive = {"fantastic", "excellent", "great", "amazing", "good", "helpful", "wonderful"}
+    negative = {"bad", "terrible", "poor", "awful", "horrible", "disappointing"}
+    import re
+    words = set(re.findall(r"[a-z]+", review.lower()))
+    score = len(words & positive) - len(words & negative)
+    sentiment = "positive" if score > 0 else "negative" if score < 0 else "neutral"
+    return JsonResponse({"review": review, "sentiment": sentiment, "analysis_method": "demo_keyword_rules"})
