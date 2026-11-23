@@ -59,3 +59,16 @@ def get_all_dealers(request):
         {"id": 2, "full_name": "DriveWise Mumbai West", "short_name": "DW Mumbai", "city": "Mumbai", "state": "Maharashtra", "address": "Sample Showroom, Mumbai, India"}
     ]
     return JsonResponse({"sample_data": True, "dealers": dealers})
+
+def get_dealer_by_id(request, dealer_id):
+    if request.method != "GET":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+    # Coursework sample data; production should query the dealer database.
+    dealers = {
+        1: {"id": 1, "full_name": "DriveWise Pune Central", "short_name": "DW Pune", "city": "Pune", "state": "Maharashtra", "address": "Sample Showroom, Pune, India"},
+        2: {"id": 2, "full_name": "DriveWise Mumbai West", "short_name": "DW Mumbai", "city": "Mumbai", "state": "Maharashtra", "address": "Sample Showroom, Mumbai, India"}
+    }
+    dealer = dealers.get(dealer_id)
+    if dealer is None:
+        return JsonResponse({"error": "Dealer not found"}, status=404)
+    return JsonResponse({"sample_data": True, "dealer": dealer})
