@@ -2,12 +2,14 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 def home(request): return render(request,"home.html")
 def about(request): return render(request,"About.html")
 def contact(request): return render(request,"contact.html")
 
+@csrf_exempt
 @require_POST
 def login_user(request):
     try:
