@@ -95,3 +95,14 @@ def dealers_page(request):
         {"id": 4, "full_name": "Sunflower Motors Wichita", "city": "Wichita", "state": "Kansas"},
     ]
     return render(request, "dealers.html", {"dealers": dealers})
+
+def get_all_car_makes(request):
+    if request.method != "GET":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+    # Demonstration catalog, not retrieved from the course's external cars API.
+    makes = [
+        {"id": 1, "name": "Toyota", "models": [{"id": 101, "name": "Corolla"}, {"id": 102, "name": "Camry"}]},
+        {"id": 2, "name": "Honda", "models": [{"id": 201, "name": "Civic"}, {"id": 202, "name": "Accord"}]},
+        {"id": 3, "name": "Ford", "models": [{"id": 301, "name": "Mustang"}, {"id": 302, "name": "Escape"}]}
+    ]
+    return JsonResponse({"sample_data": True, "car_makes": makes})
