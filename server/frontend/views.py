@@ -34,3 +34,18 @@ def logout_user(request):
     username=request.user.username
     logout(request)
     return JsonResponse({"status":"Logged out","userName":username})
+
+def get_dealer_reviews(request, dealer_id):
+    if request.method != "GET":
+        return JsonResponse({"error":"Method not allowed"},status=405)
+    # Explicitly labeled sample data until the dealership reviews database is connected.
+    reviews = {
+        1: [
+            {"id": 101, "dealership": 1, "name": "Aarav Patel", "purchase": True, "review": "Helpful staff and a smooth car buying experience.", "sentiment": "positive"},
+            {"id": 102, "dealership": 1, "name": "Neha Rao", "purchase": False, "review": "The team answered my questions clearly.", "sentiment": "positive"}
+        ],
+        2: [
+            {"id": 201, "dealership": 2, "name": "Kabir Shah", "purchase": True, "review": "Good selection, but delivery took longer than expected.", "sentiment": "neutral"}
+        ]
+    }
+    return JsonResponse({"dealer_id": dealer_id, "sample_data": True, "reviews": reviews.get(dealer_id, [])})
