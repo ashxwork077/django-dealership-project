@@ -72,3 +72,13 @@ def get_dealer_by_id(request, dealer_id):
     if dealer is None:
         return JsonResponse({"error": "Dealer not found"}, status=404)
     return JsonResponse({"sample_data": True, "dealer": dealer})
+
+def get_dealers_by_state(request, state):
+    if request.method != "GET":
+        return JsonResponse({"error": "Method not allowed"}, status=405)
+    sample_dealers = [
+        {"id": 3, "full_name": "Prairie Auto Kansas City", "short_name": "Prairie Auto", "city": "Kansas City", "state": "Kansas", "address": "Sample Address, Kansas City, KS, USA"},
+        {"id": 4, "full_name": "Sunflower Motors Wichita", "short_name": "Sunflower Motors", "city": "Wichita", "state": "Kansas", "address": "Sample Address, Wichita, KS, USA"},
+    ]
+    matches = [dealer for dealer in sample_dealers if dealer["state"].casefold() == state.casefold()]
+    return JsonResponse({"sample_data": True, "state": state, "dealers": matches})
