@@ -7,4 +7,5 @@ urlpatterns=[
     path("about/",views.about,name="about"),
     path("contact/",views.contact,name="contact"),
     path("djangoapp/login",views.login_user,name="login_user"),
+    path("djangoapp/logout",views.logout_user,name="logout_user"),
 ]
