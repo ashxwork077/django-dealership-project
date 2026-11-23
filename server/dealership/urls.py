@@ -3,6 +3,7 @@ from django.urls import path
 from frontend import views
 urlpatterns=[
     path("admin/",admin.site.urls),
+    path("dealers/",views.dealers_page,name="dealers_page"),
     path("",views.home,name="home"),
     path("about/",views.about,name="about"),
     path("contact/",views.contact,name="contact"),
