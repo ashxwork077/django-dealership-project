@@ -82,3 +82,16 @@ def get_dealers_by_state(request, state):
     ]
     matches = [dealer for dealer in sample_dealers if dealer["state"].casefold() == state.casefold()]
     return JsonResponse({"sample_data": True, "state": state, "dealers": matches})
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+
+@login_required(login_url="/admin/login/")
+def dealers_page(request):
+    dealers = [
+        {"id": 1, "full_name": "DriveWise Pune Central", "city": "Pune", "state": "Maharashtra"},
+        {"id": 2, "full_name": "DriveWise Mumbai West", "city": "Mumbai", "state": "Maharashtra"},
+        {"id": 3, "full_name": "Prairie Auto Kansas City", "city": "Kansas City", "state": "Kansas"},
+        {"id": 4, "full_name": "Sunflower Motors Wichita", "city": "Wichita", "state": "Kansas"},
+    ]
+    return render(request, "dealers.html", {"dealers": dealers})
