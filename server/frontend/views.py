@@ -49,3 +49,13 @@ def get_dealer_reviews(request, dealer_id):
         ]
     }
     return JsonResponse({"dealer_id": dealer_id, "sample_data": True, "reviews": reviews.get(dealer_id, [])})
+
+def get_all_dealers(request):
+    if request.method != "GET":
+        return JsonResponse({"error":"Method not allowed"},status=405)
+    # Demonstration records; replace with database-backed dealership records for production.
+    dealers = [
+        {"id": 1, "full_name": "DriveWise Pune Central", "short_name": "DW Pune", "city": "Pune", "state": "Maharashtra", "address": "Sample Showroom, Pune, India"},
+        {"id": 2, "full_name": "DriveWise Mumbai West", "short_name": "DW Mumbai", "city": "Mumbai", "state": "Maharashtra", "address": "Sample Showroom, Mumbai, India"}
+    ]
+    return JsonResponse({"sample_data": True, "dealers": dealers})
